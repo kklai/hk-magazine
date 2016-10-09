@@ -1,20 +1,11 @@
 #!/usr/bin/env node
 
+var PDFImage = require("pdf-image").PDFImage;
 
-var fs      = require('fs');
-var pdf2img = require('pdf2img');
- 
-var input   = __dirname + '/pdf/HKMagazine_1099.pdf';
-console.log(input)
- 
-pdf2img.setOptions({
-  type: 'jpeg',                      // png or jpeg, default png 
-  size: 1024,                       // default 1024 
-  density: 600,                     // default 600 
-  outputdir: __dirname + '/images', // mandatory, outputdir must be absolute path 
-});
- 
-pdf2img.convert(input, function(err, info) {
-  if (err) console.log(err)
-  else console.log(info);
-});
+for (var i = 1099; i < 1166; i++) {
+	console.log("pdf/HKMagazine_" + i +".pdf");
+	var pdfImage = new PDFImage("pdf/HKMagazine_" + i +".pdf");
+	pdfImage.convertPage(0).then(function (imagePath) {
+		fs.existsSync("test-0.png");
+	});
+}
